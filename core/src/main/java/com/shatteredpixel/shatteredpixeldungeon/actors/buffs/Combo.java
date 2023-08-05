@@ -221,14 +221,18 @@ public class Combo extends Buff implements ActionIndicator.Action {
 			this.tintColor = tintColor;
 		}
 
+		public String title(){
+			return Messages.get(this, name() + ".name");
+		}
+
 		public String desc(int count){
 			switch (this){
 				default:
-					return Messages.get(this, name()+"_desc");
+					return Messages.get(this, name() + ".desc");
 				case SLAM:
-					return Messages.get(this, name()+"_desc", count*20);
+					return Messages.get(this,  name() + ".desc", count*20);
 				case CRUSH:
-					return Messages.get(this, name()+"_desc", count*25);
+					return Messages.get(this,  name() + ".desc", count*25);
 			}
 
 		}
@@ -337,6 +341,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				break;
 		}
 
+		int oldPos = enemy.pos;
 		if (hero.attack(enemy, dmgMulti, dmgBonus, Char.INFINITE_ACCURACY)){
 			//special on-hit effects
 			switch (moveBeingUsed) {
@@ -357,7 +362,9 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							dist--;
 						}
 					}
-					WandOfBlastWave.throwChar(enemy, trajectory, dist, true, false, hero.getClass());
+					if (enemy.pos == oldPos) {
+						WandOfBlastWave.throwChar(enemy, trajectory, dist, true, false, hero);
+					}
 					break;
 				case PARRY:
 					hit(enemy);
@@ -465,7 +472,10 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					Ballistica c = new Ballistica(target.pos, enemy.pos, Ballistica.PROJECTILE);
 					if (c.collisionPos == enemy.pos){
 						final int leapPos = c.path.get(c.dist-1);
-						if (!Dungeon.level.passable[leapPos]){
+						if (!Dungeon.level.passable[leapPos] && !(target.flying && Dungeon.level.avoid[leapPos])){
+							GLog.w(Messages.get(Combo.class, "bad_target"));
+						} else if (Dungeon.hero.rooted) {
+							PixelScene.shake( 1, 1f );
 							GLog.w(Messages.get(Combo.class, "bad_target"));
 						} else {
 							Dungeon.hero.busy();
