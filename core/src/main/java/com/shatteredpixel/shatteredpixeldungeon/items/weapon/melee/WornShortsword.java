@@ -22,17 +22,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-
-
 
 public class WornShortsword extends MeleeWeapon {
 
@@ -47,24 +40,13 @@ public class WornShortsword extends MeleeWeapon {
 	}
 
 	@Override
-	public float abilityChargeUse( Hero hero ) {
+	protected int baseChargeUse(Hero hero, Char target){
 		if (hero.buff(Sword.CleaveTracker.class) != null){
 			return 0;
 		} else {
-			return super.abilityChargeUse( hero );
+			return 1;
 		}
 	}
-
-	/*对鼠鼠造成额外十点伤害
-	@Override
-	public int proc(Char attacker, Char defender, int damage ){
-		if (defender instanceof Rat){
-			damage +=10;
-		}
-		return super.proc(attacker, defender, damage);
-	}*/
-
-
 
 	@Override
 	public String targetingPrompt() {

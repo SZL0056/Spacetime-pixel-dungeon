@@ -94,9 +94,11 @@ public class Pasty extends Food {
 			case XMAS:
 				image = ItemSpriteSheet.CANDY_CANE;
 				break;
+			/*
 			case PHYSICIST:
 				image = ItemSpriteSheet.BUTTERBREAD;
 				break;
+			*/
 		}
 	}
 	

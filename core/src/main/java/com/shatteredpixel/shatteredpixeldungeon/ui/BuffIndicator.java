@@ -120,8 +120,8 @@ public class BuffIndicator extends Component {
 	public static final int DUEL_XBOW   = 66;
 	public static final int CHALLENGE   = 67;
 	public static final int MONK_ENERGY = 68;
-	public static final int A = 69;
-	public static final int B = 70;
+	public static final int DUEL_COMBO  = 69;
+	public static final int DAZE        = 70;
 	public static final int C = 71;
 	public static final int D = 72;
 	public static final int NULL_ARMOR  = 73;

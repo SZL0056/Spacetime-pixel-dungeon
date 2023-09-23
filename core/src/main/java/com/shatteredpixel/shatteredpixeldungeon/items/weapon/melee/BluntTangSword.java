@@ -56,6 +56,7 @@ public class BluntTangSword extends MeleeWeapon {
 				lvl*(tier+1);   //scaling unchanged	升级增益不变
 	}
 
+	/*
 	@Override
 	public float abilityChargeUse( Hero hero ) {
 		if (hero.buff(BluntTangSword.CleaveTracker.class) != null){
@@ -64,6 +65,8 @@ public class BluntTangSword extends MeleeWeapon {
 			return super.abilityChargeUse( hero );
 		}
 	}
+	*/
+
 
 	@Override
 	public String targetingPrompt() {
@@ -72,9 +75,10 @@ public class BluntTangSword extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		BluntTangSword.cleaveAbility(hero, target, 1.27f, this);
+		Sword.cleaveAbility(hero, target, 1.27f, this);
 	}
 
+	/*
 	public static void cleaveAbility(Hero hero, Integer target, float dmgMulti, MeleeWeapon wep){
 		if (target == null) {
 			return;
@@ -119,7 +123,6 @@ public class BluntTangSword extends MeleeWeapon {
 	}
 
 
-
 	@Override
 	public int proc( Char attacker, Char defender, int damage ) {
 
@@ -144,7 +147,7 @@ public class BluntTangSword extends MeleeWeapon {
 
 		return super.proc( attacker, defender, damage );
 	}
-
+ */
 
 
 	public static class CleaveTracker extends FlavourBuff {

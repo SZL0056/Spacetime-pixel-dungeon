@@ -58,6 +58,7 @@ public class TangSword extends MeleeWeapon {
 				lvl*(tier+1);   //scaling unchanged	升级增益不变
 	}
 
+	/*
 	@Override
 	public float abilityChargeUse( Hero hero ) {
 		if (hero.buff(TangSword.CleaveTracker.class) != null){
@@ -146,7 +147,7 @@ public class TangSword extends MeleeWeapon {
 
 		return super.proc( attacker, defender, damage );
 	}
-
+	 */
 
 
 	public static class CleaveTracker extends FlavourBuff {
