@@ -68,14 +68,14 @@ import java.util.ArrayList;
 
 public class Holywater extends Item {
 
-	private static final int MAX_VOLUME	= 5;
+	private static final int MAX_VOLUME	= 5;//最大充能
 
-	private static final String AC_WASH	= "WASH";
-	private static final String AC_FILL	= "FILL";
+	private static final String AC_WASH	= "WASH";//洗
+	private static final String AC_FILL	= "FILL";//填充
 
-	private static final float TIME_TO_FILL = 1f;
+	private static final float TIME_TO_FILL = 1f;//填充所需时间
 
-	private static final String TXT_STATUS	= "%d/%d";
+	private static final String TXT_STATUS	= "%d/%d";//文本显示
 
 	{
 		image = ItemSpriteSheet.HOLYWATER;
@@ -83,7 +83,6 @@ public class Holywater extends Item {
 		defaultAction = AC_WASH;
 
 		unique = true;
-
 	}
 
 	private int volume = 2;
@@ -148,7 +147,7 @@ public class Holywater extends Item {
 
 					Waterskin waterskin = hero.belongings.getItem(Waterskin.class);
 
-					if( waterskin != null && volume >=5 ) {
+					if( waterskin != null && waterskin.volume1 >=5 ) {
 
 						if (Catalog.isSeen(ScrollOfRemoveCurse.class) && scrollOfRemoveCurse.isKnown()) {
 
@@ -156,7 +155,7 @@ public class Holywater extends Item {
 
 							removeScroll.detach(Dungeon.hero.belongings.backpack);
 							volume += 1;
-							volume -= 5;
+							waterskin.volume1 -= 5;
 							hero.spend(TIME_TO_FILL);
 							GLog.w(Messages.get(this, "fill"));
 
@@ -328,7 +327,6 @@ public class Holywater extends Item {
 	public boolean isFull() {
 		return volume >= MAX_VOLUME;
 	}
-
 
 	public void fill() {
 		volume = MAX_VOLUME;

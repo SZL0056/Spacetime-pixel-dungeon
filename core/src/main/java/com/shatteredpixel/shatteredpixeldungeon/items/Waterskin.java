@@ -36,7 +36,7 @@ import java.util.ArrayList;
 
 public class Waterskin extends Item {
 
-	private static final int MAX_VOLUME	= 20;
+	private static final int MAX_VOLUME1	= 20;
 
 	private static final String AC_DRINK	= "DRINK";
 
@@ -52,26 +52,26 @@ public class Waterskin extends Item {
 		unique = true;
 	}
 
-	protected int volume = 0;
+	public int volume1 = 0;
 
-	private static final String VOLUME	= "volume";
+	private static final String VOLUME1	= "volume1";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
-		bundle.put( VOLUME, volume );
+		bundle.put( VOLUME1, volume1 );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		volume	= bundle.getInt( VOLUME );
+		volume1	= bundle.getInt( VOLUME1 );
 	}
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (volume > 0) {
+		if (volume1 > 0) {
 			actions.add( AC_DRINK );
 		}
 		return actions;
@@ -84,7 +84,7 @@ public class Waterskin extends Item {
 
 		if (action.equals( AC_DRINK )) {
 
-			if (volume > 0) {
+			if (volume1 > 0) {
 				
 				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
 
@@ -101,10 +101,10 @@ public class Waterskin extends Item {
 				
 				//trimming off 0.01 drops helps with floating point errors
 				int dropsNeeded = (int)Math.ceil((missingHealthPercent / 0.05f) - 0.01f);
-				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume1);
 
 				if (Dewdrop.consumeDew(dropsNeeded, hero, true)){
-					volume -= dropsNeeded;
+					volume1 -= dropsNeeded;
 
 					hero.spend(TIME_TO_DRINK);
 					hero.busy();
@@ -127,7 +127,7 @@ public class Waterskin extends Item {
 	public String info() {
 		String info = desc();
 
-		if (volume == 0){
+		if (volume1 == 0){
 			info += "\n\n" + Messages.get(this, "desc_water");
 		} else {
 			info += "\n\n" + Messages.get(this, "desc_heal");
@@ -141,7 +141,7 @@ public class Waterskin extends Item {
 	}
 
 	public void empty() {
-		volume = 0;
+		volume1 = 0;
 		updateQuickslot();
 	}
 
@@ -156,15 +156,15 @@ public class Waterskin extends Item {
 	}
 
 	public boolean isFull() {
-		return volume >= MAX_VOLUME;
+		return volume1 >= MAX_VOLUME1;
 	}
 
 	public void collectDew( Dewdrop dew ) {
 
 		GLog.i( Messages.get(this, "collected") );
-		volume += dew.quantity;
-		if (volume >= MAX_VOLUME) {
-			volume = MAX_VOLUME;
+		volume1 += dew.quantity;
+		if (volume1 >= MAX_VOLUME1) {
+			volume1 = MAX_VOLUME1;
 			GLog.p( Messages.get(this, "full") );
 		}
 
@@ -172,13 +172,13 @@ public class Waterskin extends Item {
 	}
 
 	public void fill() {
-		volume = MAX_VOLUME;
+		volume1 = MAX_VOLUME1;
 		updateQuickslot();
 	}
 
 	@Override
 	public String status() {
-		return Messages.format( TXT_STATUS, volume, MAX_VOLUME );
+		return Messages.format( TXT_STATUS, volume1, MAX_VOLUME1 );
 	}
 
 }

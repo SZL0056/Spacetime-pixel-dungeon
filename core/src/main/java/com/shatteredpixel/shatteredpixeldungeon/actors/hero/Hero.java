@@ -607,16 +607,6 @@ public class Hero extends Char {
 		if (!RingOfForce.fightingUnarmed(this)) {
 			dmg = wep.damageRoll( this );
 
-			if (heroClass != HeroClass.DUELIST
-					&& hasTalent(Talent.LIGHTWEIGHT_CHARGE)
-					&& wep instanceof MeleeWeapon) {
-				if (((MeleeWeapon) wep).tier == 2) {
-					dmg = Math.round(dmg * (1f + 0.067f*pointsInTalent(Talent.LIGHTWEIGHT_CHARGE)));
-				} else if (((MeleeWeapon) wep).tier == 3) {
-					dmg = Math.round(dmg * (1f + 0.05f*pointsInTalent(Talent.LIGHTWEIGHT_CHARGE)));
-				}
-			}
-
 			if (!(wep instanceof MissileWeapon)) dmg += RingOfForce.armedDamageBonus(this);
 		} else {
 			dmg = RingOfForce.damageRoll(this);
@@ -1294,7 +1284,7 @@ public class Hero extends Char {
 			Buff.affect(this, HoldFast.class).pos = pos;
 		}
 		if (hasTalent(Talent.PATIENT_STRIKE)){
-			Buff.prolong(this, Talent.PatientStrikeTracker.class, cooldown());
+			Buff.affect(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
 		}
 		if (!fullRest) {
 			if (sprite != null) {
